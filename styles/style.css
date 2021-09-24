@@ -1,0 +1,96 @@
+body {
+  margin: 0px auto;
+  padding: 0px;
+  background-color: #ccc;
+}
+@page {
+  size: 100mm 148mm;
+  margin: 0mm;
+}
+@media screen {
+  .wrapper {
+    margin: 1mm;
+  }
+}
+.wrapper {
+  width: 100mm;
+  height: 148mm;
+  padding-top: 11mm;
+  background-color: white;
+  page-break-after: always;
+}
+.destination {
+  margin-left: 9mm;
+  margin-right: 9mm;
+}
+.destination table {
+  table-layout: fixed;
+  border-collapse: collapse;
+  width: 82mm;
+}
+.destination .to-radio {
+  font-size: 8pt;
+}
+.destination .callsign {
+  font-size: 10pt;
+  text-decoration: underline;
+  vertical-align: bottom;
+}
+.destination .frame {
+  width: 6.5mm;
+  height: 9mm;
+  border-width: 0.5mm;
+  border-style: dashed;
+  font-size: 18pt;
+  text-align: center;
+}
+.destination td.separator {
+  width: 2.0mm;
+}
+.qso-information {
+  margin-top: 5mm;
+  margin-left: 9mm;
+  margin-right: 9mm;
+}
+.qso-information .cfm-our-qso {
+  font-size: 12pt;
+
+}
+.qso-information table {
+  table-layout: fixed;
+  width: 82mm;
+}
+.qso-information table, .qso-information th, .qso-information td {
+  border-collapse: collapse;
+  border: 0.5mm solid;
+  font-size: 9pt;
+  text-align: center;
+}
+.qso-information th.date {
+  width: 21mm !important;
+}
+.qso-information th {
+  width: 14mm;
+}
+.qso-information td {
+  height: 10mm;
+  text-align: center;
+}
+.station-information .rig,
+.station-information .antenna,
+.station-information .qth,
+.station-information .remarks {
+  margin-top: 5mm;
+  margin-left: 9mm;
+  margin-right: 9mm;
+  clear: both;
+  font-size: 10pt
+}
+.station-information div div:first-child {
+  float: left !important;
+  margin-top: 2mm;
+}
+.station-information div div:last-child {
+  float: right;
+  margin-top: 2mm;
+}

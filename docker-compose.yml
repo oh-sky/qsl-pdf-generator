@@ -1,0 +1,9 @@
+version: '3'
+services:
+  qsl-pdf-generator:
+    build: ./
+    container_name: 'qsl-pdf-generator'
+    command: /bin/bash -c "cd /work && python3 /work/app.py"
+    volumes:
+      - ./:/work
+      - ./output:/output

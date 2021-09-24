@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>QSL cards</title>
+  <link rel="stylesheet" type="text/css" href="../styles/style.css">
+</head>
+
+<body>
+  {% for item in qsos %}
+  <div class=wrapper>
+    <div class="destination">
+      <table>
+        <tbody>
+          <tr>
+            <td class="to-radio">To Radio</td>
+            <td rowspan="2" class="frame">{{ item.transferCallsign[:1] }}</td><td rowspan="2" class="separator"></td>
+            <td rowspan="2" class="frame">{{ item.transferCallsign[1:2] }}</td><td rowspan="2" class="separator"></td>
+            <td rowspan="2" class="frame">{{ item.transferCallsign[2:3] }}</td><td rowspan="2" class="separator"></td>
+            <td rowspan="2" class="frame">{{ item.transferCallsign[3:4] }}</td><td rowspan="2" class="separator"></td>
+            <td rowspan="2" class="frame">{{ item.transferCallsign[4:5] }}</td><td rowspan="2" class="separator"></td>
+            <td rowspan="2" class="frame">{{ item.transferCallsign[5:6] }}</td>
+          </tr>
+          <tr>
+            <td class="callsign">{{ item.callsign }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="qso-information">
+      <div class="above-table">
+        <div class="cfm-our-qso">confirming our QSO</div>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th class="date">Date</th>
+            <th>Time</th>
+            <th>RST</th>
+            <th>Band</th>
+            <th>Mode</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ item.date }}</td>
+            <td>{{ item.time }}</td>
+            <td>{{ item.rst }}</td>
+            <td>{{ item.band }}</td>
+            <td>{{ item.mode }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="station-information">
+      <div class="rig">
+        <div class="name">Rig: {{ item.rig }}</div>
+        <div class="output">{{ item.power }}</div>
+      </div>
+      <div class="antenna">
+        <div class="name">Ant: {{ item.antenna }}</div>
+        <div class="ground-height">{{ item.groundHeight }}</div>
+      </div>
+      <div class="qth">
+        <div>QTH: {{ item.qth }}</div>
+      </div>
+      <div class="remarks">
+        <div>Rmks: {{ item.remarks }}</div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</body>
+
+</html>
