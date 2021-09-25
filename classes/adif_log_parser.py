@@ -1,6 +1,6 @@
 import datetime
 import adif_io
-from Qso import Qso
+from qso import Qso
 
 
 class AdifLogParser:

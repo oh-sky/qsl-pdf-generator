@@ -1,7 +1,7 @@
 import sys
 from jinja2 import Environment, FileSystemLoader
 from weasyprint import HTML, CSS
-from AdifLogParser import AdifLogParser
+from adif_log_parser import AdifLogParser
 
 
 OUTPUT_HTML_FILE = '/work/output/qsl-cards.html'
