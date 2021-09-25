@@ -11,7 +11,6 @@ RUN apt install -y python3-pip python3-cffi python3-brotli libpango-1.0-0 libhar
 RUN apt autoremove
 RUN apt clean
 
-RUN pip install weasyprint
-RUN pip install Jinja2
+RUN pip install poetry
 
-CMD weasyprint --info
+CMD bash
