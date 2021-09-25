@@ -1,4 +1,12 @@
 [[package]]
+name = "adif-io"
+version = "0.0.3"
+description = "Basic input of ADIF radio amateur log files."
+category = "main"
+optional = false
+python-versions = ">=3.5"
+
+[[package]]
 name = "brotli"
 version = "1.0.9"
 description = "Python bindings for the Brotli compression library"
@@ -213,9 +221,13 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "eb3b7b7aea47f0ed0f8ca7f372a6e39a548bd8393ee265dfbaaf439795560cdf"
+content-hash = "89cf151fab7ad03625c78c3e6c90e9911251495dd79ec747ca0b87a4abd1fd80"
 
 [metadata.files]
+adif-io = [
+    {file = "adif_io-0.0.3-py3-none-any.whl", hash = "sha256:f137bcf396ec0740ac57f92c08fa2178619a22b7e570870eaa33a86745785126"},
+    {file = "adif_io-0.0.3.tar.gz", hash = "sha256:b069ab7d930ea017d44b55be7577e8cc4bd03fa7e8a286fd993178c09981150c"},
+]
 brotli = [
     {file = "Brotli-1.0.9-cp27-cp27m-macosx_10_9_x86_64.whl", hash = "sha256:268fe94547ba25b58ebc724680609c8ee3e5a843202e9a381f6f9c5e8bdb5c70"},
     {file = "Brotli-1.0.9-cp27-cp27m-manylinux1_i686.whl", hash = "sha256:c2415d9d082152460f2bd4e382a1e85aed233abc92db5a3880da2257dc7daf7b"},
