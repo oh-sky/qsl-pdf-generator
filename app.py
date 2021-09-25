@@ -30,8 +30,8 @@ def write_out_html(qso_log):
     template = env.get_template('index.html')
     html = template.render({ 'qsos': qso_log })
 
-    file = open(OUTPUT_HTML_FILE, 'w', encoding='utf-8')
-    file.write(html)
+    with open(OUTPUT_HTML_FILE, 'w', encoding='utf-8') as html_file:
+        html_file.write(html)
 
 
 def write_out_pdf():
