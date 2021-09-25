@@ -8,7 +8,8 @@ It generates the QSL cards as PDF file from QSO log.
 git clone git@github.com:oh-sky/qsl-pdf-generator.git
 cd qsl-pdf-generator
 #
-# prepar log here
+# prepar log
+# put ADIF files (*.adif) into ./input
 #
 docker-compose build
 docker-compose up
