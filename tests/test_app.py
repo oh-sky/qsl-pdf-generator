@@ -4,6 +4,7 @@ import os
 import pytest
 from app import File, get_log_file_list
 from app import write_out_html
+from app import write_out_pdf
 from qso import Qso
 
 
@@ -70,6 +71,41 @@ def qso_log() -> list:
 def html_file_path(tmpdir) -> str:
     """ fixture returns path to html file """
     path = os.path.join(tmpdir, 'unittest_out.html')
+
+    yield os.path.join(path)
+
+    os.remove(path)
+
+
+def test_write_out_pdf(html_file_path_to_write_out_pdf: str, pdf_file_path: str):
+    """ test write_out_pdf() """
+    write_out_pdf(html_file_path_to_write_out_pdf, pdf_file_path)
+
+    assert os.path.isfile(pdf_file_path)
+
+    with open(pdf_file_path, 'rb') as f:
+        pdf = f.read()
+
+    assert pdf.find('Body'.encode('utf-8'))
+
+
+@pytest.fixture
+def html_file_path_to_write_out_pdf(tmpdir) -> str:
+    """ fixture creates html file and returns path for it """
+    path = os.path.join(tmpdir, 'for_test_write_out_pdf.html')
+
+    with open(path, 'w', encoding='utf-8') as f:
+        f.write('<html><head><title>Title</title></head><body>Body</body></html>')
+
+    yield path
+
+    os.remove(path)
+
+
+@pytest.fixture
+def pdf_file_path(tmpdir) -> str:
+    """ fixture returns path to pdf file """
+    path = os.path.join(tmpdir, 'unittest_out.pdf')
 
     yield os.path.join(path)
 
