@@ -15,7 +15,7 @@ CSS_FILE = '/work/styles/style.css'
 def main():
     """ main routine """
 
-    log_files = get_log_file_list()
+    log_files = get_log_file_list(INPUT_DIRECTORY)
 
     for log_file in log_files:
         print(f'starting to process {log_file.basename} ...', file=sys.stderr)
@@ -33,14 +33,13 @@ class File(NamedTuple):
     path: str
 
 
-def get_log_file_list() -> tuple:
+def get_log_file_list(search_directory: str) -> tuple:
     """ get log File list """
-
     log_file_list = []
     file_patterns = ('*.adi', '*.adif')
 
     for file_pattern in file_patterns:
-        filepaths = glob.glob(INPUT_DIRECTORY + file_pattern)
+        filepaths = glob.glob(os.path.join(search_directory, file_pattern))
         for filepath in filepaths:
             log_file_list.append(File(
                 basename=os.path.basename(filepath),
