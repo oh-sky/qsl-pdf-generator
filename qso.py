@@ -1,8 +1,10 @@
+""" QSO information """
 from typing import NamedTuple
 import datetime
 
 
 class Qso(NamedTuple):
+    """ QSO information NamedTuple """
     callsign: str
     datetime: datetime.datetime
     rst_sent: str
