@@ -11,9 +11,14 @@ cd qsl-pdf-generator
 # prepar log
 # put ADIF files (*.adif) into ./input
 #
+# e.g. You have log202108.adi and log202109.adif
+# cp log202108.adi log202109.adif ./input
+#
 docker-compose build
 docker-compose up
 #
-# you'd get pdf file under ./output
+# You'd get PDF files  under ./output
+# (e.g. log202108.adi.pdf and log202109.adif.pdf)
+#
 #
 ```
