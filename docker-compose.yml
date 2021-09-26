@@ -3,8 +3,6 @@ services:
   qsl-pdf-generator:
     build: ./
     container_name: 'qsl-pdf-generator'
-    environment:
-      - PYTHONPATH=./modules
     command: /bin/bash -c "cd /work && poetry install && poetry run python app.py"
     volumes:
       - ./:/work
