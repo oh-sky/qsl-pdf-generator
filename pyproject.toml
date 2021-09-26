@@ -12,6 +12,7 @@ adif-io = "^0.0.3"
 
 [tool.poetry.dev-dependencies]
 pylint = "^2.11"
+pytest = "^6.2.5"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
