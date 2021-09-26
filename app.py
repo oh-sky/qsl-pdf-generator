@@ -24,6 +24,7 @@ def main():
         qso_log = parse_qso_log(log_file_path=log_file.path)
         write_out_html(qso_log=qso_log, html_file_path=html_file_path)
         write_out_pdf(html_file_path=html_file_path,
+                      css_file_path=CSS_FILE,
                       pdf_file_path=pdf_file_path)
 
 
@@ -66,14 +67,14 @@ def write_out_html(qso_log: list, html_file_path: str):
         html_file.write(html)
 
 
-def write_out_pdf(html_file_path: str, pdf_file_path: str):
+def write_out_pdf(html_file_path: str, css_file_path: str, pdf_file_path: str):
     """ write out PDF file by printing HTML and CSS files """
     print('  Generating PDF ...', file=sys.stderr)
     HTML(
         filename=html_file_path
     ).write_pdf(
         target=pdf_file_path,
-        stylesheets=[CSS(CSS_FILE)]
+        stylesheets=[CSS(css_file_path)]
     )
 
 

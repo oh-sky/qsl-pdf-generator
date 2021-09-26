@@ -77,9 +77,9 @@ def html_file_path(tmpdir) -> str:
     os.remove(path)
 
 
-def test_write_out_pdf(html_file_path_to_write_out_pdf: str, pdf_file_path: str):
+def test_write_out_pdf(html_file_path_to_write_out_pdf: str, css_file_path: str, pdf_file_path: str):
     """ test write_out_pdf() """
-    write_out_pdf(html_file_path_to_write_out_pdf, pdf_file_path)
+    write_out_pdf(html_file_path_to_write_out_pdf, css_file_path, pdf_file_path)
 
     assert os.path.isfile(pdf_file_path)
 
@@ -96,6 +96,19 @@ def html_file_path_to_write_out_pdf(tmpdir) -> str:
 
     with open(path, 'w', encoding='utf-8') as f:
         f.write('<html><head><title>Title</title></head><body>Body</body></html>')
+
+    yield path
+
+    os.remove(path)
+
+
+@pytest.fixture
+def css_file_path(tmpdir) -> str:
+    """ fixture creates css file and returns path for it """
+    path = os.path.join(tmpdir, 'for_test_write_out_pdf.css')
+
+    with open(path, 'w', encoding='utf-8') as f:
+        f.write('body: {{color: #000}}')
 
     yield path
 
