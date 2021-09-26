@@ -16,7 +16,8 @@ def test_get_log_file_list(adif_file_list: tuple, tmpdir):
 def adif_file_list(tmpdir) -> tuple:
     """ fixture generates files and returns file list """
     files = []
-    for basename in ['a.adif', 'b.adi', 'c.adif', 'd.adi']:
+    basename_list = ['a.adif', 'b.adi', 'c.adif', 'd.adi']
+    for basename in basename_list:
         path = os.path.join(tmpdir, basename)
         files.append(File(
             basename=basename,
@@ -24,7 +25,11 @@ def adif_file_list(tmpdir) -> tuple:
         ))
         with open(path, 'w', encoding='utf-8') as file:
             file.write(basename)
+
     yield tuple(files)
+
+    for basename in basename_list:
+        os.remove(os.path.join(tmpdir, basename))
 
 
 def test_write_out_html(qso_log: list, html_file_path: str):
@@ -61,7 +66,7 @@ def qso_log() -> list:
     )])
 
 
-@ pytest.fixture
+@pytest.fixture
 def html_file_path(tmpdir) -> str:
     """ fixture returns path to html file """
     path = os.path.join(tmpdir, 'unittest_out.html')
