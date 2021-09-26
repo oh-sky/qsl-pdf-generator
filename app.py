@@ -5,7 +5,7 @@ import sys
 from typing import NamedTuple
 from jinja2 import Environment, FileSystemLoader
 from weasyprint import HTML, CSS
-from adif_log_parser import AdifLogParser
+from adif_log_parse import adif_log_parse
 
 INPUT_DIRECTORY = '/work/input/'
 OUTPUT_DIRECTORY = '/work/output/'
@@ -53,7 +53,7 @@ def get_log_file_list() -> tuple:
 def parse_qso_log(log_file_path: str):
     """ parse qso log from log file """
     print('  Parsing log ...', file=sys.stderr)
-    return AdifLogParser.parse(filename=log_file_path)
+    return adif_log_parse(filename=log_file_path)
 
 
 def write_out_html(qso_log: list, html_file_path: str):
