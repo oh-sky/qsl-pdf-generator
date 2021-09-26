@@ -18,8 +18,7 @@ def main():
     log_files = get_log_file_list()
 
     for log_file in log_files:
-        print('starting to process {} ...'.format(
-            log_file.basename), file=sys.stderr)
+        print(f'starting to process {log_file.basename} ...', file=sys.stderr)
         html_file_path = OUTPUT_DIRECTORY + log_file.basename + '.html'
         pdf_file_path = OUTPUT_DIRECTORY + log_file.basename + '.pdf'
         qso_log = parse_qso_log(log_file_path=log_file.path)
@@ -29,6 +28,7 @@ def main():
 
 
 class File(NamedTuple):
+    """ named tuple which has basename and path """
     basename: str
     path: str
 
