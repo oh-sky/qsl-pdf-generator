@@ -1,4 +1,5 @@
 body {
+  font-family: sans-serif;
   margin: 0px auto;
   padding: 0px;
   background-color: #ccc;
@@ -76,21 +77,22 @@ body {
   height: 10mm;
   text-align: center;
 }
-.station-information .rig,
-.station-information .antenna,
-.station-information .qth,
-.station-information .remarks {
+.station-information {
   margin-top: 5mm;
   margin-left: 9mm;
   margin-right: 9mm;
-  clear: both;
-  font-size: 10pt
 }
-.station-information div div:first-child {
-  float: left !important;
-  margin-top: 2mm;
+.station-information table {
+  table-layout: fixed;
+  width: 82mm;
 }
-.station-information div div:last-child {
-  float: right;
-  margin-top: 2mm;
+.station-information th {
+  width: 12mm;
+}
+.station-information table, .station-information th, .station-information td {
+  border-collapse: collapse;
+  border-bottom: 0.5mm solid;
+  font-size: 9pt;
+  text-align: left;
+  padding: 1mm;
 }

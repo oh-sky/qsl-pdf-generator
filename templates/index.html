@@ -56,20 +56,34 @@
     </div>
 
     <div class="station-information">
-      <div class="rig">
-        <div class="name">Rig: {{ qso.my_rig }}</div>
-        <div class="output">{{ qso.power }}</div>
-      </div>
-      <div class="antenna">
-        <div class="name">Ant: {{ qso.my_antenna }}</div>
-        <div class="ground-height">{{ qso.groundHeight }}</div>
-      </div>
-      <div class="qth">
-        <div>QTH: {{ qso.my_qth }}</div>
-      </div>
-      <div class="remarks">
-        <div>Rmks: {{ qso.comment }}</div>
-      </div>
+      <table>
+        <tbody>
+          {% if qso.my_rig %}
+          <tr>
+            <th>Rig:</th>
+            <td>{{ qso.my_rig }}</td>
+          </tr>
+          {% endif %}
+          {% if qso.my_antenna %}
+          <tr>
+            <th>Ant:</th>
+            <td>{{ qso.my_antenna }}</td>
+          </tr>
+          {% endif %}
+          {% if qso.my_qth %}
+          <tr>
+            <th>QTH:</th>
+            <td>{{ qso.my_qth }}</td>
+          </tr>
+          {% endif %}
+          {% if qso.comment %}
+          <tr>
+            <th>Rmks:</th>
+            <td>{{ qso.comment }}</td>
+          </tr>
+          {% endif %}
+        </tbody>
+      </table>
     </div>
   </div>
   {% endfor %}
