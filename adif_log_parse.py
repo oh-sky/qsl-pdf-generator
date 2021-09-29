@@ -1,10 +1,11 @@
 """ ADIF log parser """
 import datetime
+import typing
 import adif_io
 from qso import Qso
 
 
-def adif_log_parse(filename: str):
+def adif_log_parse(filename: str) -> typing.Tuple[Qso, ...]:
     """ parse ADIF log """
     qso_list = []
     items = adif_io.read_from_file(filename)[0]
