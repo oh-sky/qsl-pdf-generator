@@ -1,12 +1,12 @@
-# QSL PDF Generator
+# QSL PDF Publisher
 
 It generates the QSL cards as PDF file from QSO log.
 
 # Usage
 
 ```bash
-git clone git@github.com:oh-sky/qsl-pdf-generator.git
-cd qsl-pdf-generator
+git clone git@github.com:oh-sky/qsl_pdf_publisher.git
+cd qsl_pdf_publisher
 #
 # prepar log
 # put ADIF files (*.adif) into ./input
