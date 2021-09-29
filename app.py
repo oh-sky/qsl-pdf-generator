@@ -28,7 +28,7 @@ def main():
                       pdf_file_path=pdf_file_path)
 
 
-class File(NamedTuple):
+class LogFile(NamedTuple):
     """ named tuple which has basename and path """
     basename: str
     path: str
@@ -42,7 +42,7 @@ def get_log_file_list(search_directory: str) -> tuple:
     for file_pattern in file_patterns:
         filepaths = glob.glob(os.path.join(search_directory, file_pattern))
         for filepath in filepaths:
-            log_file_list.append(File(
+            log_file_list.append(LogFile(
                 basename=os.path.basename(filepath),
                 path=filepath
             ))
