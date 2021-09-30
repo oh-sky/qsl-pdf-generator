@@ -8,7 +8,7 @@ poetry.toml
 dist/
 *.egg-info/
 .pytest_cachedist/
-
+.coverage
 
 .vscode
 
