@@ -3,10 +3,8 @@ import datetime
 import os
 import typing
 import pytest
-from app import LogFile, get_log_file_list
-from app import write_out_html
-from app import write_out_pdf
-from qso import Qso
+from qsl_pdf_publisher.app import LogFile, get_log_file_list, write_out_html, write_out_pdf
+from qsl_pdf_publisher.qso import Qso
 
 
 def test_get_log_file_list(adif_file_list: typing.Tuple[LogFile, ...], tmpdir) -> None:

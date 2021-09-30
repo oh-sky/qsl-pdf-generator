@@ -2,8 +2,8 @@
 import datetime
 import os
 import pytest
-from adif_log_parse import adif_log_parse
-from qso import Qso
+from qsl_pdf_publisher.adif_log_parse import adif_log_parse
+from qsl_pdf_publisher.qso import Qso
 
 QSOS = (Qso(
     callsign='A1B2C3',
