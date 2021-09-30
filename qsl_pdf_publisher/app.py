@@ -2,17 +2,19 @@
 import glob
 import os
 import sys
+import typing
 from typing import NamedTuple
 from jinja2 import Environment, FileSystemLoader
 from weasyprint import HTML, CSS
 from adif_log_parse import adif_log_parse
+from qso import Qso
 
 INPUT_DIRECTORY = '/work/input/'
 OUTPUT_DIRECTORY = '/work/output/'
 CSS_FILE = '/work/styles/style.css'
 
 
-def main():
+def main() -> None:
     """ main routine """
 
     log_files = get_log_file_list(INPUT_DIRECTORY)
@@ -28,13 +30,13 @@ def main():
                       pdf_file_path=pdf_file_path)
 
 
-class File(NamedTuple):
+class LogFile(NamedTuple):
     """ named tuple which has basename and path """
     basename: str
     path: str
 
 
-def get_log_file_list(search_directory: str) -> tuple:
+def get_log_file_list(search_directory: str) -> typing.Tuple[LogFile, ...]:
     """ get log File list """
     log_file_list = []
     file_patterns = ('*.adi', '*.adif')
@@ -42,7 +44,7 @@ def get_log_file_list(search_directory: str) -> tuple:
     for file_pattern in file_patterns:
         filepaths = glob.glob(os.path.join(search_directory, file_pattern))
         for filepath in filepaths:
-            log_file_list.append(File(
+            log_file_list.append(LogFile(
                 basename=os.path.basename(filepath),
                 path=filepath
             ))
@@ -50,13 +52,13 @@ def get_log_file_list(search_directory: str) -> tuple:
     return tuple(log_file_list)
 
 
-def parse_qso_log(log_file_path: str):
+def parse_qso_log(log_file_path: str) -> typing.Tuple[Qso, ...]:
     """ parse qso log from log file """
     print('  Parsing log ...', file=sys.stderr)
     return adif_log_parse(filename=log_file_path)
 
 
-def write_out_html(qso_log: list, html_file_path: str):
+def write_out_html(qso_log: typing.Tuple[Qso, ...], html_file_path: str) -> None:
     """ write out html file based on QSO log """
     print('  Generating HTML ...', file=sys.stderr)
     env = Environment(loader=FileSystemLoader('./templates'))
@@ -67,7 +69,7 @@ def write_out_html(qso_log: list, html_file_path: str):
         html_file.write(html)
 
 
-def write_out_pdf(html_file_path: str, css_file_path: str, pdf_file_path: str):
+def write_out_pdf(html_file_path: str, css_file_path: str, pdf_file_path: str) -> None:
     """ write out PDF file by printing HTML and CSS files """
     print('  Generating PDF ...', file=sys.stderr)
     HTML(

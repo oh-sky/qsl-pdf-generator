@@ -19,5 +19,7 @@ jobs:
         pip install poetry
         poetry install
     - name: Analysing the code with pylint
+      env:
+        PYTHONPATH: ./qsl_pdf_publisher
       run: |
         poetry run pylint `ls -R|grep .py$|xargs`

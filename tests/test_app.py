@@ -1,26 +1,25 @@
 """ test app.py functions """
 import datetime
 import os
+import typing
 import pytest
-from app import File, get_log_file_list
-from app import write_out_html
-from app import write_out_pdf
-from qso import Qso
+from qsl_pdf_publisher.app import LogFile, get_log_file_list, write_out_html, write_out_pdf
+from qsl_pdf_publisher.qso import Qso
 
 
-def test_get_log_file_list(adif_file_list: tuple, tmpdir):
+def test_get_log_file_list(adif_file_list: typing.Tuple[LogFile, ...], tmpdir) -> None:
     """ test get_log_file_list """
     assert set(adif_file_list) == set(get_log_file_list(tmpdir))
 
 
 @pytest.fixture
-def adif_file_list(tmpdir) -> tuple:
+def adif_file_list(tmpdir) -> typing.Tuple[LogFile, ...]:
     """ fixture generates files and returns file list """
     files = []
     basename_list = ['a.adif', 'b.adi', 'c.adif', 'd.adi']
     for basename in basename_list:
         path = os.path.join(tmpdir, basename)
-        files.append(File(
+        files.append(LogFile(
             basename=basename,
             path=path
         ))
@@ -33,7 +32,7 @@ def adif_file_list(tmpdir) -> tuple:
         os.remove(os.path.join(tmpdir, basename))
 
 
-def test_write_out_html(qso_log: list, html_file_path: str):
+def test_write_out_html(qso_log: typing.Tuple[Qso, ...], html_file_path: str):
     """ test write_out_html() """
     write_out_html(qso_log, html_file_path)
 
@@ -46,7 +45,7 @@ def test_write_out_html(qso_log: list, html_file_path: str):
 
 
 @pytest.fixture
-def qso_log() -> list:
+def qso_log() -> typing.Tuple[Qso, ...]:
     """ fixture returns list of qso """
 
     yield tuple([Qso(
