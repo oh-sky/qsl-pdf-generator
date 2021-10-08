@@ -1,77 +1,82 @@
 """
 UserConfig & MyStation Class
 """
+import os
+from typing import NamedTuple
 import yaml
+import datetime
 
 CONFIG_FILE_PATH = '/work/input/config.yml'
 
-frequency_band_map: dict = {
-    '135kHz' : '2200m',
-    '475kHz' : '600m',
-    '1.9MHz' : '160m',
-    '3.5MHz' : '80m',
-    '7MHz' : '40m',
-    '10MHz' : '30m',
-    '14MHz' : '20m',
-    '18MHz' : '17m',
-    '21MHz' : '15m',
-    '24MHz' : '12m',
-    '28MHz' : '10m',
-    '50MHz' : '6m',
-    '144MHz' : '2m',
-    '430MHz' : '70cm',
-    '1200MHz' : '23cm',
-    '2400MHz' : '12cm',
-    '5.6GHz' : '5cm',
-    '10GHz' : '3cm',
-}
 
-
-class MyStation:
+class MyStation(NamedTuple):
     """
     MyStation Class
     """
-    callsign: str = None
-    op_name: str = None
-    rig: str = None
-    ant: dict = {}
+    callsign: str
+    op_name: str
+    rig: str
+    ant: dict
+    qth: str
 
 
-    def __init__(self, station_settings: dict) -> None:
-        self.callsign = station_settings['callsign']
-        self.op_name = station_settings['op_name']
-        self.rig = station_settings['rig']
-        self.ant = station_settings['ant']
+class InputSettings(NamedTuple):
+    """
+    Input Settings
+    settings about files put into /input directory
+    """
+    template_name: str
 
 
-    def get_ant_by_band(self, band: str) -> str:
-        return self.ant[band]
+class OutputSettings(NamedTuple):
+    """
+    OutputSettings
+    settings about output html & pdf
+    """
+    print_timezone: datetime.timezone
+    sort_by_callsign: bool
 
 
-    def get_ant_by_frequency(self, frequency: str) -> str:
-        return self.ant[frequency_band_map[frequency]]
 
-
-class UserConfig:
+class UserConfig(NamedTuple):
     """
     UserConfig Class
     """
-    mystation: MyStation = None
-    template: str = None
-    timezone: str = None
-    qth: str = None
-    sort_by_callsign: bool = None
+    my_station: MyStation
+    input_settings: InputSettings
+    output_settings: OutputSettings
 
 
-    def __init__(self) -> None:
-        """
-        constructor
-        Set properties from input/config.yml
-        """
-        with open(CONFIG_FILE_PATH, 'r') as yml:
-            config = yaml.load(yml)
-        self.mystation = MyStation(config['mystation'])
-        self.template = config['template']
-        self.timezone = config['timezone']
-        self.qth = config['qth']
-        self.sort_by_callsign = config['sort_by_callsign']
+def get_timezone_from_config(timezone_string: str) -> datetime.timezone:
+    """
+    Get datetime.timezone object from config.
+    Allowed input variable range is from '-23' to '+23'.
+    Based on utc.
+    """
+    return datetime.timezone(datetime.timedelta(hours=int(timezone_string)))
+
+
+def generate_user_config(config_file_path: os.path=CONFIG_FILE_PATH):
+    """
+    reads config yaml file and returns UserConfig
+    """
+    with open(config_file_path, 'r', encoding='utf-8') as file:
+        config: dict = yaml.load(file, Loader=yaml.SafeLoader)
+    return UserConfig(
+        my_station = MyStation(
+            callsign = config['my_station']['callsign'],
+            op_name = config['my_station']['op_name'],
+            rig = config['my_station']['rig'],
+            ant = config['my_station']['ant'],
+            qth = config['my_station']['qth'],
+        ),
+        input_settings = InputSettings(
+            template_name = config['input_settings']['template'],
+        ),
+        output_settings = OutputSettings(
+            print_timezone = datetime.timezone(
+                datetime.timedelta(hours=int(config['output_settings']['print_timezone']))),
+            sort_by_callsign = config['output_settings']['sort_by_callsign']
+        ),
+    )
+
