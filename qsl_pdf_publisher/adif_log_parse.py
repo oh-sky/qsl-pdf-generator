@@ -3,6 +3,7 @@ import datetime
 import typing
 import adif_io
 from qso import Qso
+from callsign import Callsign
 
 
 def adif_log_parse(filename: str) -> typing.Tuple[Qso, ...]:
@@ -10,8 +11,10 @@ def adif_log_parse(filename: str) -> typing.Tuple[Qso, ...]:
     qso_list = []
     items = adif_io.read_from_file(filename)[0]
     for item in items:
+        callsign = Callsign(item.get('CALL'))
         qso_list.append(Qso(
-            callsign=item.get('CALL'),
+            callsign=callsign.get(),
+            transfer_callsign=callsign.get_transfer(),
             datetime=datetime.datetime(
                 int(item.get('QSO_DATE')[:4]),
                 int(item.get('QSO_DATE')[4:6]),

@@ -6,6 +6,7 @@ import datetime
 class Qso(NamedTuple):
     """ QSO information NamedTuple """
     callsign: str
+    transfer_callsign: str
     datetime: datetime.datetime
     rst_sent: str
     band: str
