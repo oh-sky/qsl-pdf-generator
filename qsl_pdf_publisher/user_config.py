@@ -62,7 +62,7 @@ def read_user_config_file(config_file_path: Path=CONFIG_FILE_PATH) -> None:
     Reads config yaml file and returns UserConfig
     If there isn't file, it returns None
     """
-    if os.path.isfile(config_file_path) == False:
+    if not os.path.isfile(config_file_path):
         return None
 
     with open(config_file_path, 'r', encoding='utf-8') as file:
@@ -79,8 +79,7 @@ def read_user_config_file(config_file_path: Path=CONFIG_FILE_PATH) -> None:
             template_name = config['input_settings']['template'],
         ),
         output_settings = OutputSettings(
-            print_timezone = datetime.timezone(
-                datetime.timedelta(hours=int(config['output_settings']['print_timezone']))),
+            print_timezone = get_timezone_from_config(config['output_settings']['print_timezone']),
             sort_by_callsign = config['output_settings']['sort_by_callsign']
         ),
     )
