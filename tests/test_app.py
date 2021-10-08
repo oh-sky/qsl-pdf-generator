@@ -50,6 +50,7 @@ def qso_log() -> typing.Tuple[Qso, ...]:
 
     yield tuple([Qso(
         callsign='A1B2C3',
+        transfer_callsign='A1B2C3',
         datetime=datetime.datetime(2001, 12, 1, 23, 43),
         rst_sent='599',
         band='40m',
