@@ -1,4 +1,4 @@
-mystation:
+my_station:
   callsign: "MY CALLSIGN"
   op_name: "MY NAME"
   rig: "MY RIG NAME"
@@ -23,8 +23,9 @@ mystation:
     3cm: "MY ANT NAME FOR 10GHz"
   qth: "MY QTH"
 
-template: index.html
+input_settings:
+  template: index.html
 
-timezone: "JST"
-
-sort_by_callsign: true
+output_settings:
+  print_timezone: "JST"
+  sort_by_callsign: true
