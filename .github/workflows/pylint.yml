@@ -4,6 +4,9 @@ on:
   push:
     paths:
       - '**.py'
+  pull_request:
+    paths:
+      - '**.py'
 
 jobs:
   build:
@@ -25,4 +28,4 @@ jobs:
       env:
         PYTHONPATH: ./qsl_pdf_publisher
       run: |
-        poetry run pylint `ls -R|grep .py$|xargs`
+        poetry run pylint $(find ./qsl_pdf_publisher -name "*.py" | xargs)
