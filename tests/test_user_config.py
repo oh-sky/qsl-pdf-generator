@@ -10,6 +10,14 @@ import yaml
 from qsl_pdf_publisher.user_config import read_user_config_file
 
 
+def test_user_config_returns_none(tmpdir: Path) -> None:
+    """
+    test if read_user_config() returns None if config file doesn't exist
+    """
+    path = os.path.join(tmpdir, 'cannot_exist.yml')
+    assert read_user_config_file(path) == None
+
+
 def test_user_config(config_file_and_dict: Tuple[Path, dict]) -> None:
     """
     test user_config module

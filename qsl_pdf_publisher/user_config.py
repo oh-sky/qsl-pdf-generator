@@ -2,6 +2,7 @@
 UserConfig & MyStation Class
 """
 import datetime
+import os
 from pathlib import Path
 from typing import NamedTuple
 import yaml
@@ -56,10 +57,14 @@ def get_timezone_from_config(timezone_string: str) -> datetime.timezone:
     return datetime.timezone(datetime.timedelta(hours=int(timezone_string)))
 
 
-def read_user_config_file(config_file_path: Path=CONFIG_FILE_PATH):
+def read_user_config_file(config_file_path: Path=CONFIG_FILE_PATH) -> None:
     """
-    reads config yaml file and returns UserConfig
+    Reads config yaml file and returns UserConfig
+    If there isn't file, it returns None
     """
+    if os.path.isfile(config_file_path) == False:
+        return None
+
     with open(config_file_path, 'r', encoding='utf-8') as file:
         config: dict = yaml.load(file, Loader=yaml.SafeLoader)
     return UserConfig(
