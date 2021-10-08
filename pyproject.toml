@@ -12,6 +12,7 @@ python = "^3.8"
 weasyprint = "^53.3"
 Jinja2 = "^3.0"
 adif-io = "^0.0.3"
+PyYAML = "^5.4.1"
 
 [tool.poetry.dev-dependencies]
 pylint = "^2.11"
