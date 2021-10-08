@@ -1,8 +1,11 @@
 [tool.poetry]
-name = "qsl_pdf_generator"
-version = "0.1.0"
-description = ""
-authors = ["Your Name <you@example.com>"]
+name = "qsl_pdf_publisher"
+version = "0.1.3"
+description = "Publish QSL cards as PDF from QSO log files."
+authors = ["oh-sky <yoshihiro.ohsuka@gmail.com>"]
+homepage = "https://github.com/oh-sky"
+repository = "https://github.com/oh-sky/qsl_pdf_publisher"
+license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.8"
