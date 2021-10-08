@@ -7,7 +7,7 @@ import datetime
 from pathlib import Path
 from typing import Tuple
 import yaml
-from qsl_pdf_publisher.user_config import generate_user_config
+from qsl_pdf_publisher.user_config import read_user_config_file
 
 
 def test_user_config(config_file_and_dict: Tuple[Path, dict]) -> None:
@@ -15,7 +15,7 @@ def test_user_config(config_file_and_dict: Tuple[Path, dict]) -> None:
     test user_config module
     """
     config_file_path, config_dict = config_file_and_dict
-    user_config = generate_user_config(config_file_path)
+    user_config = read_user_config_file(config_file_path)
 
     assert user_config.my_station.callsign == config_dict['my_station']['callsign']
     assert user_config.my_station.op_name == config_dict['my_station']['op_name']
