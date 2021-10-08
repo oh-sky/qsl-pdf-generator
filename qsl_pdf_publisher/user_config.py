@@ -1,10 +1,10 @@
 """
 UserConfig & MyStation Class
 """
+import datetime
 import os
 from typing import NamedTuple
 import yaml
-import datetime
 
 CONFIG_FILE_PATH = '/work/input/config.yml'
 
@@ -79,4 +79,3 @@ def generate_user_config(config_file_path: os.path=CONFIG_FILE_PATH):
             sort_by_callsign = config['output_settings']['sort_by_callsign']
         ),
     )
-
