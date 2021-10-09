@@ -3,7 +3,9 @@ import datetime
 import os
 import typing
 import pytest
-from qsl_pdf_publisher.app import LogFile, get_log_file_list, write_out_html, write_out_pdf
+from qsl_pdf_publisher.log_file_utils.log_file import LogFile
+from qsl_pdf_publisher.log_file_utils.get_log_file_list import get_log_file_list
+from qsl_pdf_publisher.app import get_log_file_list, write_out_html, write_out_pdf
 from qsl_pdf_publisher.qso import Qso
 
 
