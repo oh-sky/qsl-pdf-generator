@@ -1,10 +1,14 @@
-"""main routine of qsl-pdf-generator"""
+"""
+main routine of qsl-pdf-generator
+"""
 import sys
 import typing
 from jinja2 import Environment, FileSystemLoader
 from weasyprint import HTML, CSS
 from qsl_pdf_publisher.log_file_utils.get_log_file_list import get_log_file_list
 from qsl_pdf_publisher.log_file_utils.parse_qso_log import parse_qso_log
+from qsl_pdf_publisher.log_file_utils.sort import sort_by_callsign
+from qsl_pdf_publisher.user_config import read_user_config_file
 from qsl_pdf_publisher.qso import Qso
 
 INPUT_DIRECTORY = '/work/input/'
@@ -13,15 +17,22 @@ CSS_FILE = '/work/styles/style.css'
 
 
 def main() -> None:
-    """ main routine """
+    """
+    main routine
+    """
 
     log_files = get_log_file_list(INPUT_DIRECTORY)
+    user_config = read_user_config_file()
 
     for log_file in log_files:
         print(f'starting to process {log_file.basename} ...', file=sys.stderr)
         html_file_path = OUTPUT_DIRECTORY + log_file.basename + '.html'
         pdf_file_path = OUTPUT_DIRECTORY + log_file.basename + '.pdf'
+
         qso_log = parse_qso_log(log_file_path=log_file.path)
+        if user_config.output_settings.sort_by_callsign if user_config else None:
+            qso_log = sort_by_callsign(qso_log)
+
         write_out_html(qso_log=qso_log, html_file_path=html_file_path)
         write_out_pdf(html_file_path=html_file_path,
                       css_file_path=CSS_FILE,
