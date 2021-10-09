@@ -5,6 +5,7 @@ from jinja2 import Environment, FileSystemLoader
 from weasyprint import HTML, CSS
 from adif_log_parse import adif_log_parse
 from qsl_pdf_publisher.log_file_utils.get_log_file_list import get_log_file_list
+from qsl_pdf_publisher.log_file_utils.parse_qso_log import parse_qso_log
 from qso import Qso
 
 INPUT_DIRECTORY = '/work/input/'
@@ -26,12 +27,6 @@ def main() -> None:
         write_out_pdf(html_file_path=html_file_path,
                       css_file_path=CSS_FILE,
                       pdf_file_path=pdf_file_path)
-
-
-def parse_qso_log(log_file_path: str) -> typing.Tuple[Qso, ...]:
-    """ parse qso log from log file """
-    print('  Parsing log ...', file=sys.stderr)
-    return adif_log_parse(filename=log_file_path)
 
 
 def write_out_html(qso_log: typing.Tuple[Qso, ...], html_file_path: str) -> None:
