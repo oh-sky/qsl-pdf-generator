@@ -57,7 +57,7 @@ def get_timezone_from_config(timezone_string: str) -> datetime.timezone:
     return datetime.timezone(datetime.timedelta(hours=int(timezone_string)))
 
 
-def read_user_config_file(config_file_path: Path=CONFIG_FILE_PATH) -> UserConfig|None:
+def read_user_config_file(config_file_path: Path=CONFIG_FILE_PATH) -> UserConfig:
     """
     Reads config yaml file and returns UserConfig
     If there isn't file, it returns None
