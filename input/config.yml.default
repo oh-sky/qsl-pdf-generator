@@ -1,0 +1,31 @@
+my_station:
+  callsign: "MY CALLSIGN"
+  op_name: "MY NAME"
+  rig: "MY RIG NAME"
+  ant:
+    2200m: "MY ANT NAME FOR 135kHz"
+    600m: "MY ANT NAME FOR 475kHz"
+    160m: "MY ANT NAME FOR 1.9MHz"
+    80m: "MY ANT NAME FOR 3.5MHz"
+    40m: "MY ANT NAME FOR 7MHz"
+    30m: "MY ANT NAME FOR 10MHz"
+    20m: "MY ANT NAME FOR 14MHz"
+    17m: "MY ANT NAME FOR 18MHz"
+    15m: "MY ANT NAME FOR 21MHz"
+    12m: "MY ANT NAME FOR 24MHz"
+    10m: "MY ANT NAME FOR 28MHz"
+    6m: "MY ANT NAME FOR 50MHz"
+    2m: "MY ANT NAME FOR 144MHz"
+    70cm: "MY ANT NAME FOR 430MHz"
+    23cm: "MY ANT NAME FOR 1200MHz"
+    12cm: "MY ANT NAME FOR 2400MHz"
+    5cm: "MY ANT NAME FOR 5.6GHz"
+    3cm: "MY ANT NAME FOR 10GHz"
+  qth: "MY QTH"
+
+input_settings:
+  template: index.html
+
+output_settings:
+  print_timezone: "JST"
+  sort_by_callsign: true

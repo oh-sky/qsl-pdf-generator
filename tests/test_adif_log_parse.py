@@ -2,7 +2,7 @@
 import datetime
 import os
 import pytest
-from qsl_pdf_publisher.adif_log_parse import adif_log_parse
+from qsl_pdf_publisher.log_file_utils.adif_log_parse import adif_log_parse
 from qsl_pdf_publisher.qso import Qso
 
 QSOS = (Qso(

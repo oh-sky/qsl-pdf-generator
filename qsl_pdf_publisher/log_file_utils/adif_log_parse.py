@@ -1,9 +1,11 @@
-""" ADIF log parser """
+"""
+ADIF log parser
+"""
 import datetime
 import typing
 import adif_io
-from qso import Qso
-from callsign import Callsign
+from qsl_pdf_publisher.qso import Qso
+from qsl_pdf_publisher.callsign import Callsign
 
 
 def adif_log_parse(filename: str) -> typing.Tuple[Qso, ...]:

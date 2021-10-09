@@ -1,13 +1,15 @@
-"""main routine of qsl-pdf-generator"""
-import glob
-import os
+"""
+main routine of qsl-pdf-generator
+"""
 import sys
 import typing
-from typing import NamedTuple
 from jinja2 import Environment, FileSystemLoader
 from weasyprint import HTML, CSS
-from adif_log_parse import adif_log_parse
-from qso import Qso
+from qsl_pdf_publisher.log_file_utils.get_log_file_list import get_log_file_list
+from qsl_pdf_publisher.log_file_utils.parse_qso_log import parse_qso_log
+from qsl_pdf_publisher.log_file_utils.sort import sort_by_callsign
+from qsl_pdf_publisher.user_config import UserConfig, read_user_config_file
+from qsl_pdf_publisher.qso import Qso
 
 INPUT_DIRECTORY = '/work/input/'
 OUTPUT_DIRECTORY = '/work/output/'
@@ -15,55 +17,41 @@ CSS_FILE = '/work/styles/style.css'
 
 
 def main() -> None:
-    """ main routine """
+    """
+    main routine
+    """
 
     log_files = get_log_file_list(INPUT_DIRECTORY)
+    user_config = read_user_config_file()
 
     for log_file in log_files:
         print(f'starting to process {log_file.basename} ...', file=sys.stderr)
         html_file_path = OUTPUT_DIRECTORY + log_file.basename + '.html'
         pdf_file_path = OUTPUT_DIRECTORY + log_file.basename + '.pdf'
+
         qso_log = parse_qso_log(log_file_path=log_file.path)
-        write_out_html(qso_log=qso_log, html_file_path=html_file_path)
+        if user_config.output_settings.sort_by_callsign if user_config else None:
+            qso_log = sort_by_callsign(qso_log)
+
+        write_out_html(qso_log=qso_log, html_file_path=html_file_path, user_config=user_config)
         write_out_pdf(html_file_path=html_file_path,
                       css_file_path=CSS_FILE,
                       pdf_file_path=pdf_file_path)
 
 
-class LogFile(NamedTuple):
-    """ named tuple which has basename and path """
-    basename: str
-    path: str
-
-
-def get_log_file_list(search_directory: str) -> typing.Tuple[LogFile, ...]:
-    """ get log File list """
-    log_file_list = []
-    file_patterns = ('*.adi', '*.adif')
-
-    for file_pattern in file_patterns:
-        filepaths = glob.glob(os.path.join(search_directory, file_pattern))
-        for filepath in filepaths:
-            log_file_list.append(LogFile(
-                basename=os.path.basename(filepath),
-                path=filepath
-            ))
-
-    return tuple(log_file_list)
-
-
-def parse_qso_log(log_file_path: str) -> typing.Tuple[Qso, ...]:
-    """ parse qso log from log file """
-    print('  Parsing log ...', file=sys.stderr)
-    return adif_log_parse(filename=log_file_path)
-
-
-def write_out_html(qso_log: typing.Tuple[Qso, ...], html_file_path: str) -> None:
+def write_out_html(
+        qso_log: typing.Tuple[Qso, ...],
+        html_file_path: str,
+        user_config: UserConfig=None) -> None:
     """ write out html file based on QSO log """
     print('  Generating HTML ...', file=sys.stderr)
     env = Environment(loader=FileSystemLoader('./templates'))
     template = env.get_template('index.html')
-    html = template.render({'qsos': qso_log})
+    html = template.render({
+        'qsos': qso_log,
+        'my_station': user_config.my_station if user_config else None,
+        'print_timezone': user_config.output_settings.print_timezone if user_config else None,
+    })
 
     with open(html_file_path, 'w', encoding='utf-8') as html_file:
         html_file.write(html)
