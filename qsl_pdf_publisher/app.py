@@ -3,7 +3,6 @@ import sys
 import typing
 from jinja2 import Environment, FileSystemLoader
 from weasyprint import HTML, CSS
-from adif_log_parse import adif_log_parse
 from qsl_pdf_publisher.log_file_utils.get_log_file_list import get_log_file_list
 from qsl_pdf_publisher.log_file_utils.parse_qso_log import parse_qso_log
 from qso import Qso
