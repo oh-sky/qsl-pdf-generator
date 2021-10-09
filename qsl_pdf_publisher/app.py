@@ -8,7 +8,7 @@ from weasyprint import HTML, CSS
 from qsl_pdf_publisher.log_file_utils.get_log_file_list import get_log_file_list
 from qsl_pdf_publisher.log_file_utils.parse_qso_log import parse_qso_log
 from qsl_pdf_publisher.log_file_utils.sort import sort_by_callsign
-from qsl_pdf_publisher.user_config import read_user_config_file
+from qsl_pdf_publisher.user_config import UserConfig, read_user_config_file
 from qsl_pdf_publisher.qso import Qso
 
 INPUT_DIRECTORY = '/work/input/'
@@ -33,18 +33,25 @@ def main() -> None:
         if user_config.output_settings.sort_by_callsign if user_config else None:
             qso_log = sort_by_callsign(qso_log)
 
-        write_out_html(qso_log=qso_log, html_file_path=html_file_path)
+        write_out_html(qso_log=qso_log, html_file_path=html_file_path, user_config=user_config)
         write_out_pdf(html_file_path=html_file_path,
                       css_file_path=CSS_FILE,
                       pdf_file_path=pdf_file_path)
 
 
-def write_out_html(qso_log: typing.Tuple[Qso, ...], html_file_path: str) -> None:
+def write_out_html(
+        qso_log: typing.Tuple[Qso, ...],
+        html_file_path: str,
+        user_config: UserConfig=None) -> None:
     """ write out html file based on QSO log """
     print('  Generating HTML ...', file=sys.stderr)
     env = Environment(loader=FileSystemLoader('./templates'))
     template = env.get_template('index.html')
-    html = template.render({'qsos': qso_log})
+    html = template.render({
+        'qsos': qso_log,
+        'my_station': user_config.my_station if user_config else None,
+        'print_timezone': user_config.output_settings.print_timezone if user_config else None,
+    })
 
     with open(html_file_path, 'w', encoding='utf-8') as html_file:
         html_file.write(html)

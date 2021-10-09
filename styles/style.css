@@ -19,6 +19,7 @@ body {
   padding-top: 11mm;
   background-color: white;
   page-break-after: always;
+  position: relative;
 }
 .destination {
   margin-left: 9mm;
@@ -76,6 +77,9 @@ body {
 .qso-information td {
   height: 10mm;
   text-align: center;
+}
+.qso-information td span.tz-name {
+  font-size: 5pt;
 }
 .station-information {
   margin-top: 5mm;

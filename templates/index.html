@@ -45,8 +45,14 @@
         </thead>
         <tbody>
           <tr>
-            <td>{{ qso.datetime.strftime('%d/%b/%Y') }}</td>
-            <td>{{ qso.datetime.strftime('%H:%M') }}</td>
+            {% if print_timezone %}
+              {% set tz_datetime = qso.datetime.replace(tzinfo=print_timezone) %}
+              <td>{{ tz_datetime.strftime('%d/%b/%Y') }}</td>
+              <td><span class="tz-name">{{ print_timezone }}</span><br/>{{ tz_datetime.strftime('%H:%M') }}</td>
+            {% else %}
+              <td>{{ qso.datetime.strftime('%d/%b/%Y') }}</td>
+              <td>{{ qso.datetime.strftime('%H:%M') }}</td>
+            {% endif %}
             <td>{{ qso.rst_sent }}</td>
             <td>{{ qso.band }}</td>
             <td>{{ qso.mode }}</td>
@@ -58,24 +64,63 @@
     <div class="station-information">
       <table>
         <tbody>
-          {% if qso.my_rig %}
+          {% if my_station and my_station.callsign %}
+          <tr>
+            <th>Call:</th>
+            <td>
+              {{ my_station.callsign }}
+            </td>
+          </tr>
+          {% endif %}
+
+          {% if my_station and my_station.op_name %}
+          <tr>
+            <th>Op:</th>
+            <td>
+              {{ my_station.op_name }}
+            </td>
+          </tr>
+          {% endif %}
+
+          {% if qso.my_rig or my_station and my_station.rig %}
           <tr>
             <th>Rig:</th>
-            <td>{{ qso.my_rig }}</td>
+            <td>
+              {% if my_station and my_station.rig %}
+                {{ my_station.rig }}
+              {% else %}
+                {{ qso.my_rig }}
+              {% endif %}
+            </td>
           </tr>
           {% endif %}
-          {% if qso.my_antenna %}
+
+          {% if qso.my_antenna or my_station and my_station.ant %}
           <tr>
             <th>Ant:</th>
-            <td>{{ qso.my_antenna }}</td>
+            <td>
+              {% if my_station and my_station.ant[qso.band] %}
+                {{ my_station.ant[qso.band] }}
+              {% else %}
+                {{ qso.my_antenna }}
+              {% endif %}
+            </td>
           </tr>
           {% endif %}
-          {% if qso.my_qth %}
+
+          {% if qso.my_qth or my_station and my_station.qth %}
           <tr>
             <th>QTH:</th>
-            <td>{{ qso.my_qth }}</td>
+            <td>
+              {% if my_station and my_station.qth %}
+                {{ my_station.qth }}
+              {% else %}
+                {{ qso.my_qth }}
+              {% endif %}
+            </td>
           </tr>
           {% endif %}
+
           {% if qso.comment %}
           <tr>
             <th>Rmks:</th>
