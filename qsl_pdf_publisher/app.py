@@ -3,7 +3,6 @@ import glob
 import os
 import sys
 import typing
-from typing import NamedTuple
 from jinja2 import Environment, FileSystemLoader
 from weasyprint import HTML, CSS
 from adif_log_parse import adif_log_parse
@@ -28,12 +27,6 @@ def main() -> None:
         write_out_pdf(html_file_path=html_file_path,
                       css_file_path=CSS_FILE,
                       pdf_file_path=pdf_file_path)
-
-
-class LogFile(NamedTuple):
-    """ named tuple which has basename and path """
-    basename: str
-    path: str
 
 
 def get_log_file_list(search_directory: str) -> typing.Tuple[LogFile, ...]:
