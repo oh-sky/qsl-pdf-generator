@@ -1,11 +1,10 @@
 """main routine of qsl-pdf-generator"""
-import glob
-import os
 import sys
 import typing
 from jinja2 import Environment, FileSystemLoader
 from weasyprint import HTML, CSS
 from adif_log_parse import adif_log_parse
+from qsl_pdf_publisher.log_file_utils.get_log_file_list import get_log_file_list
 from qso import Qso
 
 INPUT_DIRECTORY = '/work/input/'
@@ -27,22 +26,6 @@ def main() -> None:
         write_out_pdf(html_file_path=html_file_path,
                       css_file_path=CSS_FILE,
                       pdf_file_path=pdf_file_path)
-
-
-def get_log_file_list(search_directory: str) -> typing.Tuple[LogFile, ...]:
-    """ get log File list """
-    log_file_list = []
-    file_patterns = ('*.adi', '*.adif')
-
-    for file_pattern in file_patterns:
-        filepaths = glob.glob(os.path.join(search_directory, file_pattern))
-        for filepath in filepaths:
-            log_file_list.append(LogFile(
-                basename=os.path.basename(filepath),
-                path=filepath
-            ))
-
-    return tuple(log_file_list)
 
 
 def parse_qso_log(log_file_path: str) -> typing.Tuple[Qso, ...]:
