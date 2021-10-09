@@ -5,7 +5,7 @@ from jinja2 import Environment, FileSystemLoader
 from weasyprint import HTML, CSS
 from qsl_pdf_publisher.log_file_utils.get_log_file_list import get_log_file_list
 from qsl_pdf_publisher.log_file_utils.parse_qso_log import parse_qso_log
-from qso import Qso
+from qsl_pdf_publisher.qso import Qso
 
 INPUT_DIRECTORY = '/work/input/'
 OUTPUT_DIRECTORY = '/work/output/'
